@@ -260,8 +260,11 @@ function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (typeof value === 'string' || value instanceof String) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -289,8 +292,30 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const ACE_CLUBS_CODE = 127185;
+  const ACE_DIMONDS_CODE = 127169;
+  const ACE_HEARTS_CODE = 127153;
+  const ACE_SPADES_CODE = 127137;
+  const AMOUNT_OF_CARDS = 13;
+  const DecimalSystemValue = parseInt(value, 16);
+  if (DecimalSystemValue >= ACE_CLUBS_CODE
+    && DecimalSystemValue <= ACE_CLUBS_CODE + AMOUNT_OF_CARDS) {
+    return DecimalSystemValue - ACE_CLUBS_CODE;
+  }
+  if (DecimalSystemValue >= ACE_DIMONDS_CODE
+    && DecimalSystemValue <= ACE_DIMONDS_CODE + AMOUNT_OF_CARDS) {
+    return DecimalSystemValue - ACE_DIMONDS_CODE + AMOUNT_OF_CARDS;
+  }
+  if (DecimalSystemValue >= ACE_HEARTS_CODE
+    && DecimalSystemValue <= ACE_HEARTS_CODE + AMOUNT_OF_CARDS) {
+    return DecimalSystemValue - ACE_HEARTS_CODE + AMOUNT_OF_CARDS * 2;
+  }
+  if (DecimalSystemValue >= ACE_SPADES_CODE
+    && DecimalSystemValue <= ACE_SPADES_CODE + AMOUNT_OF_CARDS) {
+    return DecimalSystemValue - ACE_SPADES_CODE + AMOUNT_OF_CARDS * 2;
+  }
+  return false;
 }
 
 
