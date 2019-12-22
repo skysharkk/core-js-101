@@ -24,7 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (x) {
+  return function fu(x) {
     return f(g(x));
   };
 }
@@ -47,7 +47,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (value) {
+  return function fuu(value) {
     return value ** exponent;
   };
 }
@@ -152,7 +152,7 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...args2) {
+  return function func(...args2) {
     const values = [...args1, ...args2];
     return fn(...values);
   };
@@ -179,7 +179,7 @@ function partialUsingArguments(fn, ...args1) {
 function getIdGeneratorFunction(startFrom) {
   let temp = startFrom;
   let counter = 0;
-  return function () {
+  return function foo() {
     if (counter === 0) {
       counter += 1;
       return temp;
