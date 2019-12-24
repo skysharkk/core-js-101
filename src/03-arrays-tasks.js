@@ -607,8 +607,17 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const newArray = arr.map(childrenSelector);
+  function flatArray(array) {
+    return array.reduce(
+      (a, v) => (Array.isArray(v)
+        ? a.concat(flatArray(v))
+        : a.concat(v)),
+      [],
+    );
+  }
+  return flatArray(newArray);
 }
 
 
@@ -624,8 +633,17 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let i = -1;
+  function getElement(array, index) {
+    if (Array.isArray(array) && i < index.length) {
+      i += 1;
+      return getElement(array[index[i]], index);
+    }
+    return array;
+  }
+  const result = getElement(arr, indexes);
+  return result;
 }
 
 
@@ -647,8 +665,16 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let halfLengthOfArray;
+  if (arr.length % 2 === 0) {
+    halfLengthOfArray = arr.length / 2;
+  } else {
+    halfLengthOfArray = (arr.length - 1) / 2;
+  }
+  const head = arr.splice(0, halfLengthOfArray);
+  const tail = arr.splice(-halfLengthOfArray);
+  return [].concat(tail, arr, head);
 }
 
 
