@@ -51,8 +51,8 @@ function getCicleCircumference(radians) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function getAverage(value1, value2) {
+  return (((value1 / 10) + (value2 / 10)) / 2) * 10;
 }
 
 /**
